@@ -13,7 +13,7 @@ const benefits = [
   },
   {
     icon: Diamond,
-    title: "Tipo de cambio real, sin maquillaje",
+    title: "Costos transparentes, sin sorpresas",
     description:
       "Usamos el tipo de cambio del mercado, sin márgenes escondidos ni sorpresas.",
   },
