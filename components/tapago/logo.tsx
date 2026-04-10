@@ -9,7 +9,7 @@ export interface TapagoLogoProps {
   /**
    * icon    — solo el símbolo SVG
    * lockup  — símbolo + wordmark "tapago" (default)
-   * mono    — lockup monocromático (todo teal)
+   * mono    — ícono monocromático (usa currentColor)
    */
   variant?: "icon" | "lockup" | "mono"
   className?: string
@@ -18,10 +18,36 @@ export interface TapagoLogoProps {
 }
 
 // ─── Paleta ───────────────────────────────────────────────────────────────────
-const TEAL   = "#1a9cb0"   // trazo exterior dominante
-const GREEN  = "#4a6320"   // trazo superior
-const ORANGE = "#e8935a"   // trazo intermedio
-const SW     = 7           // stroke-width unificado
+const TEAL   = "#1597B8"
+const GREEN  = "#35551F"
+const ORANGE = "#F0A25A"
+const SW     = 8
+
+// ─── Geometría ────────────────────────────────────────────────────────────────
+//
+//  viewBox 0 0 100 100  ·  todos los segmentos a 45° exactos
+//
+//  Rombo-madre (exterior, teal):
+//    Centro (50, 52)  ·  semidiagonal 38
+//    Vértice top  (50, 14)   right (88, 52) [ABIERTO]
+//    Vértice left (12, 52)   bottom (50, 90)
+//
+//  Separación perpendicular entre capas: 23/√2 ≈ 16 px (trazo+gap ≈ 8+8 px)
+//
+//  TEAL  — 3 lados del rombo, lado top-right deliberadamente abierto
+//    TL  (50,14)→(12,52)   x+y=64   38√2 px
+//    LB  (12,52)→(50,90)   x-y=-40  38√2 px
+//    BR  (50,90)→(81,59)   x+y=140  31√2 px  (81 % — apertura visible)
+//
+//  GREEN  — chevron interior ∧, pico (50,37), paralelo al teal
+//    izq  (23,64)→(50,37)  x+y=87   27√2 px  (71 % del TL teal)
+//    der  (50,37)→(66,53)  x-y=13   16√2 px  (59 % del izq green)
+//
+//  ORANGE — chevron más interior ∧, pico (50,60)
+//    izq  (37,73)→(50,60)  x+y=110  13√2 px  (48 % del izq green)
+//    der  (50,60)→(59,69)  x-y=-10   9√2 px
+//
+//  Picos alineados verticalmente en x=50: y=14 · y=37 · y=60 (Δ=23)
 
 // ─── Componente ───────────────────────────────────────────────────────────────
 export function TapagoLogo({
@@ -31,69 +57,43 @@ export function TapagoLogo({
   label   = "tapago",
 }: TapagoLogoProps) {
 
-  const isMono  = variant === "mono"
+  const isMono = variant === "mono"
   const c = {
-    teal:   TEAL,
-    green:  isMono ? TEAL : GREEN,
-    orange: isMono ? TEAL : ORANGE,
+    teal:   isMono ? "currentColor" : TEAL,
+    green:  isMono ? "currentColor" : GREEN,
+    orange: isMono ? "currentColor" : ORANGE,
   }
-
-  /*
-    ╔══════════════════════════════════════════════════════════════════╗
-    ║  GEOMETRÍA — viewBox 0 0 120 120                                ║
-    ║                                                                  ║
-    ║  Rombo base (cuadrado 72×72 girado 45°, centrado en 55,72):     ║
-    ║    Top(55,36)  Right(91,72)  Bottom(55,108)  Left(19,72)        ║
-    ║                                                                  ║
-    ║  TEAL — 3 lados del rombo; lado Top→Right ABIERTO (deliberado). ║
-    ║    Seg1 (55,36)→(19,72)  upper-left arm                        ║
-    ║    Seg2 (19,72)→(55,108) lower-left arm                        ║
-    ║    Seg3 (55,108)→(83,80) lower-right arm — se detiene ~8px     ║
-    ║                           antes del vértice derecho             ║
-    ║                                                                  ║
-    ║  GREEN — chevron interior, pico en (55,46).                     ║
-    ║    Brazo izq: (31,70)→(55,46)  brazo der: (55,46)→(71,62)      ║
-    ║    Gap visual con inner edge del teal ≈ 3px                     ║
-    ║                                                                  ║
-    ║  ORANGE — chevron entre green y teal, pico en (55,57).          ║
-    ║    Brazo izq: (39,73)→(55,57)  brazo der: (55,57)→(65,67)      ║
-    ║    Gap proporcional con green ≈ 3-4px                           ║
-    ║                                                                  ║
-    ║  Todos los trazos comparten SW=7, strokeLinecap="round".        ║
-    ║  Solo <line> y <rect> — sin <path>, <polygon> ni imágenes.      ║
-    ╚══════════════════════════════════════════════════════════════════╝
-  */
 
   const icon = (
     <svg
       width={size}
       height={size}
-      viewBox="0 0 120 120"
+      viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      {/* ── TEAL — rombo abierto (peso visual dominante) ─────────────── */}
-      {/* upper-left arm */}
-      <line x1="55" y1="36" x2="19" y2="72"
+      {/* ── TEAL — rombo abierto (dominante) ────────────────────────────── */}
+      {/* Brazo upper-left: Top → Left */}
+      <line x1="50" y1="14" x2="12" y2="52"
             stroke={c.teal} strokeWidth={SW} strokeLinecap="round"/>
-      {/* lower-left arm */}
-      <line x1="19" y1="72" x2="55" y2="108"
+      {/* Brazo lower-left: Left → Bottom */}
+      <line x1="12" y1="52" x2="50" y2="90"
             stroke={c.teal} strokeWidth={SW} strokeLinecap="round"/>
-      {/* lower-right arm — se detiene antes de cerrar, apertura deliberada */}
-      <line x1="55" y1="108" x2="83" y2="80"
+      {/* Brazo lower-right: Bottom → se detiene antes del Right — apertura deliberada */}
+      <line x1="50" y1="90" x2="81" y2="59"
             stroke={c.teal} strokeWidth={SW} strokeLinecap="round"/>
 
-      {/* ── GREEN — techo/cubierta superior (más corto que teal) ──────── */}
-      <line x1="31" y1="70" x2="55" y2="46"
+      {/* ── GREEN — chevron interior, pico (50,37) ───────────────────────── */}
+      <line x1="23" y1="64" x2="50" y2="37"
             stroke={c.green} strokeWidth={SW} strokeLinecap="round"/>
-      <line x1="55" y1="46" x2="71" y2="62"
+      <line x1="50" y1="37" x2="66" y2="53"
             stroke={c.green} strokeWidth={SW} strokeLinecap="round"/>
 
-      {/* ── ORANGE — nivel intermedio (más corto que green) ───────────── */}
-      <line x1="39" y1="73" x2="55" y2="57"
+      {/* ── ORANGE — chevron más interior, pico (50,60) ──────────────────── */}
+      <line x1="37" y1="73" x2="50" y2="60"
             stroke={c.orange} strokeWidth={SW} strokeLinecap="round"/>
-      <line x1="55" y1="57" x2="65" y2="67"
+      <line x1="50" y1="60" x2="59" y2="69"
             stroke={c.orange} strokeWidth={SW} strokeLinecap="round"/>
     </svg>
   )
