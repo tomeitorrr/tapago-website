@@ -6,9 +6,9 @@ const EMAIL_FROM = "noreply@tapagopay.net"
 const EMAIL_TO = "compliance@tapagopay.net"
 
 export async function POST(request: NextRequest) {
-  // TODO: Configurar RESEND_API_KEY en .env.local antes de deployar
-  const resend = new Resend(process.env.RESEND_API_KEY)
   try {
+    // TODO: Configurar RESEND_API_KEY en las variables de entorno del servidor de producción
+    const resend = new Resend(process.env.RESEND_API_KEY)
     const body = await request.json()
 
     const {

@@ -100,8 +100,9 @@ export function OnboardingForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       })
-      const json = await res.json()
-      if (!res.ok) throw new Error(json.error || "Error desconocido")
+      const text = await res.text()
+      const json = text ? JSON.parse(text) : {}
+      if (!res.ok) throw new Error(json.error || "Error al enviar. Intentá de nuevo.")
       setStatus("success")
     } catch (err: unknown) {
       setStatus("error")
