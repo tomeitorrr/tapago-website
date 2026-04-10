@@ -23,27 +23,36 @@ export function TapagoLogo({ className, variant = "dark", size = "md" }: LogoPro
       <svg
         width={iconPx}
         height={iconPx}
-        viewBox="0 0 120 120"
+        viewBox="0 0 200 200"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        {/* Verde oscuro — más separado del rombo */}
-        <line x1="64" y1="44" x2="90" y2="18"
-          stroke={green} strokeWidth="5.5" strokeLinecap="round"/>
-        {/* Naranja — medio */}
-        <line x1="70" y1="50" x2="96" y2="24"
-          stroke={orange} strokeWidth="5.5" strokeLinecap="round"/>
-        {/* Teal — pegado al rombo */}
-        <line x1="76" y1="56" x2="102" y2="30"
-          stroke={teal} strokeWidth="5.5" strokeLinecap="round"/>
-        {/* Rombo redondeado — strokeLinejoin="round" da las esquinas redondeadas */}
-        <path
-          d="M 55 39 L 81 65 L 55 91 L 29 65 Z"
-          stroke={teal}
-          strokeWidth="7"
-          strokeLinejoin="round"
-          fill="none"
+        <defs>
+          {/* Corta todo excepto la zona que asoma por encima del rombo teal */}
+          <clipPath id="clip-back">
+            <polygon points="0,0 200,0 200,115 100,65 0,115" />
+          </clipPath>
+        </defs>
+
+        {/* Verde oscuro — más atrás, desplazado 18px arriba-izquierda */}
+        <rect x="42" y="52" width="80" height="80" rx="14"
+          stroke={green} strokeWidth="7"
+          transform="rotate(45, 82, 92)"
+          clipPath="url(#clip-back)"
+        />
+
+        {/* Naranja — medio, desplazado 9px arriba-izquierda */}
+        <rect x="51" y="61" width="80" height="80" rx="14"
+          stroke={orange} strokeWidth="7"
+          transform="rotate(45, 91, 101)"
+          clipPath="url(#clip-back)"
+        />
+
+        {/* Teal — adelante, sin clip */}
+        <rect x="60" y="70" width="80" height="80" rx="14"
+          stroke={teal} strokeWidth="7"
+          transform="rotate(45, 100, 110)"
         />
       </svg>
 
