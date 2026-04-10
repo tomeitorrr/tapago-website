@@ -28,16 +28,16 @@ export function TapagoLogo({ className, variant = "dark", size = "md" }: LogoPro
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        {/* Línea verde oscuro — más atrás */}
-        <line x1="79" y1="30" x2="103" y2="6"
-          stroke={green} strokeWidth="5" strokeLinecap="round"/>
-        {/* Línea naranja — medio */}
-        <line x1="84" y1="35" x2="108" y2="11"
-          stroke={orange} strokeWidth="5" strokeLinecap="round"/>
-        {/* Línea teal — adelante */}
-        <line x1="89" y1="40" x2="110" y2="19"
-          stroke={teal} strokeWidth="5" strokeLinecap="round"/>
-        {/* Rombo redondeado */}
+        {/* Verde oscuro — más atrás, offset (-5,-5) del punto base (87,37) */}
+        <line x1="82" y1="32" x2="110" y2="4"
+          stroke={green} strokeWidth="5.5" strokeLinecap="round"/>
+        {/* Naranja — medio */}
+        <line x1="87" y1="37" x2="115" y2="9"
+          stroke={orange} strokeWidth="5.5" strokeLinecap="round"/>
+        {/* Teal — adelante, offset (+5,+5) del punto base */}
+        <line x1="92" y1="42" x2="120" y2="14"
+          stroke={teal} strokeWidth="5.5" strokeLinecap="round"/>
+        {/* Rombo — NO tocar */}
         <path
           d="M54 33 Q54 19 68 33 L85 50 Q99 64 85 78 L68 95 Q54 109 40 95 L23 78 Q9 64 23 50 L40 33 Q54 19 54 33 Z"
           stroke={teal}
