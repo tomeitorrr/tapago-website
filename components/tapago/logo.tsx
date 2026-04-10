@@ -22,26 +22,26 @@ export function TapagoLogo({ className, variant = "dark", size = "md" }: LogoPro
     <div className={cn("flex items-center gap-3 select-none", className)}>
       <svg
         width={iconPx}
-        height={iconPx * 1.15}
-        viewBox="0 0 120 138"
+        height={iconPx}
+        viewBox="0 0 120 120"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        {/* Verde oscuro — más atrás, offset (-5,-5) del punto base (87,37) */}
-        <line x1="82" y1="32" x2="110" y2="4"
+        {/* Verde oscuro — más separado del rombo */}
+        <line x1="64" y1="44" x2="90" y2="18"
           stroke={green} strokeWidth="5.5" strokeLinecap="round"/>
         {/* Naranja — medio */}
-        <line x1="87" y1="37" x2="115" y2="9"
+        <line x1="70" y1="50" x2="96" y2="24"
           stroke={orange} strokeWidth="5.5" strokeLinecap="round"/>
-        {/* Teal — adelante, offset (+5,+5) del punto base */}
-        <line x1="92" y1="42" x2="120" y2="14"
+        {/* Teal — pegado al rombo */}
+        <line x1="76" y1="56" x2="102" y2="30"
           stroke={teal} strokeWidth="5.5" strokeLinecap="round"/>
-        {/* Rombo — NO tocar */}
+        {/* Rombo redondeado — strokeLinejoin="round" da las esquinas redondeadas */}
         <path
-          d="M54 33 Q54 19 68 33 L85 50 Q99 64 85 78 L68 95 Q54 109 40 95 L23 78 Q9 64 23 50 L40 33 Q54 19 54 33 Z"
+          d="M 55 39 L 81 65 L 55 91 L 29 65 Z"
           stroke={teal}
-          strokeWidth="6.5"
+          strokeWidth="7"
           strokeLinejoin="round"
           fill="none"
         />
