@@ -44,9 +44,7 @@ export function FinalCta() {
           className="mt-10"
         >
           <a
-            href="https://tapago.wibond.co/auth"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/abrir-cuenta"
             className="group inline-flex items-center gap-2 rounded-xl bg-primary-foreground px-8 py-4 text-lg font-bold text-teal-700 transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl hover:shadow-teal-900/30 cursor-pointer"
           >
             Crear mi cuenta gratis

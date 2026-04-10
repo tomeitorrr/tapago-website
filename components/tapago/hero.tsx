@@ -108,12 +108,10 @@ export function Hero() {
             className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start justify-center"
           >
             <a
-              href="https://tapago.wibond.co/auth"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/abrir-cuenta"
               className="group inline-flex items-center gap-2 rounded-lg bg-teal-600 px-7 py-3.5 text-base font-semibold text-primary-foreground transition-all duration-200 hover:-translate-y-0.5 hover:bg-teal-700 hover:shadow-xl hover:shadow-teal-600/20 cursor-pointer"
             >
-              Todo listo para usar Tapago
+              Abrir mi cuenta
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
             <a

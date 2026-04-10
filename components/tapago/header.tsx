@@ -18,6 +18,7 @@ export function Header() {
     { label: "Como funciona", href: "#como-funciona" },
     { label: "Beneficios", href: "#beneficios" },
     { label: "FAQ", href: "#faq" },
+    { label: "Abrir cuenta", href: "/abrir-cuenta" },
   ]
 
   return (
@@ -56,12 +57,10 @@ export function Header() {
 
         {/* Desktop CTA */}
         <a
-          href="https://tapago.wibond.co/auth"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/abrir-cuenta"
           className="hidden rounded-lg bg-teal-600 px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:-translate-y-0.5 hover:bg-teal-700 hover:shadow-lg md:inline-block cursor-pointer"
         >
-          Todo listo para usar Tapago
+          Abrir cuenta
         </a>
 
         {/* Mobile menu button */}
@@ -95,13 +94,11 @@ export function Header() {
               </a>
             ))}
             <a
-              href="https://tapago.wibond.co/auth"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/abrir-cuenta"
               onClick={() => setMobileOpen(false)}
               className="mt-2 rounded-lg bg-teal-600 px-5 py-2.5 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-teal-700 cursor-pointer w-full block"
             >
-              Todo listo para usar Tapago
+              Abrir cuenta
             </a>
           </nav>
         </motion.div>
