@@ -55,12 +55,14 @@ export function Header() {
         </nav>
 
         {/* Desktop CTA */}
-        <button
-          onClick={() => alert('Próximamente - Acceso anticipado disponible')}
+        <a
+          href="https://tapago.wibond.co/auth"
+          target="_blank"
+          rel="noopener noreferrer"
           className="hidden rounded-lg bg-teal-600 px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-all duration-200 hover:-translate-y-0.5 hover:bg-teal-700 hover:shadow-lg md:inline-block cursor-pointer"
         >
           Todo listo para usar Tapago
-        </button>
+        </a>
 
         {/* Mobile menu button */}
         <button
@@ -92,15 +94,15 @@ export function Header() {
                 {link.label}
               </a>
             ))}
-            <button
-              onClick={() => {
-                setMobileOpen(false)
-                alert('Próximamente - Acceso anticipado disponible')
-              }}
-              className="mt-2 rounded-lg bg-teal-600 px-5 py-2.5 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-teal-700 cursor-pointer w-full"
+            <a
+              href="https://tapago.wibond.co/auth"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileOpen(false)}
+              className="mt-2 rounded-lg bg-teal-600 px-5 py-2.5 text-center text-sm font-semibold text-primary-foreground transition-colors hover:bg-teal-700 cursor-pointer w-full block"
             >
               Todo listo para usar Tapago
-            </button>
+            </a>
           </nav>
         </motion.div>
       )}

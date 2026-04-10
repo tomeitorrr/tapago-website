@@ -43,13 +43,15 @@ export function FinalCta() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-10"
         >
-          <button
-            onClick={() => alert('Próximamente - Acceso anticipado disponible')}
+          <a
+            href="https://tapago.wibond.co/auth"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 rounded-xl bg-primary-foreground px-8 py-4 text-lg font-bold text-teal-700 transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl hover:shadow-teal-900/30 cursor-pointer"
           >
             Crear mi cuenta gratis
             <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-          </button>
+          </a>
         </motion.div>
 
         <motion.p

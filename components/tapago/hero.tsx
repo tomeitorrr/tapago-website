@@ -107,13 +107,15 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start justify-center"
           >
-            <button
-              onClick={() => alert('Próximamente - Acceso anticipado disponible')}
+            <a
+              href="https://tapago.wibond.co/auth"
+              target="_blank"
+              rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 rounded-lg bg-teal-600 px-7 py-3.5 text-base font-semibold text-primary-foreground transition-all duration-200 hover:-translate-y-0.5 hover:bg-teal-700 hover:shadow-xl hover:shadow-teal-600/20 cursor-pointer"
             >
               Todo listo para usar Tapago
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </button>
+            </a>
             <a
               href="#como-funciona"
               className="group inline-flex items-center gap-2 rounded-lg border border-border bg-transparent px-7 py-3.5 text-base font-semibold text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-lg"
