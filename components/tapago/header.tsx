@@ -36,7 +36,7 @@ export function Header() {
       <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-4 lg:px-8">
         {/* Logo */}
         <a href="/">
-          <TapagoLogo variant="dark" size="lg" />
+          <TapagoLogo variant="lockup" size={52} />
         </a>
 
         {/* Desktop Navigation */}

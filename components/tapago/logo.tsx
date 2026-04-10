@@ -1,66 +1,116 @@
+"use client"
+
 import { cn } from "@/lib/utils"
 
-interface LogoProps {
+// ─── API ──────────────────────────────────────────────────────────────────────
+export interface TapagoLogoProps {
+  /** Tamaño del ícono en px (o cualquier valor CSS válido para width/height) */
+  size?: number | string
+  /**
+   * icon    — solo el símbolo SVG
+   * lockup  — símbolo + wordmark "tapago" (default)
+   * mono    — lockup monocromático (todo teal)
+   */
+  variant?: "icon" | "lockup" | "mono"
   className?: string
-  variant?: "dark" | "light"
-  size?: "sm" | "md" | "lg"
+  /** Texto del wordmark. Default: "tapago" */
+  label?: string
 }
 
-const iconSizes = { sm: 36, md: 48, lg: 60 }
-const textSizes = { sm: "text-xl", md: "text-2xl", lg: "text-3xl" }
+// ─── Paleta ───────────────────────────────────────────────────────────────────
+const TEAL   = "#1a9cb0"   // trazo exterior dominante
+const GREEN  = "#4a6320"   // trazo superior
+const ORANGE = "#e8935a"   // trazo intermedio
+const SW     = 7           // stroke-width unificado
 
-export function TapagoLogo({ className, variant = "dark", size = "md" }: LogoProps) {
-  const iconPx  = iconSizes[size]
-  const isLight = variant === "light"
+// ─── Componente ───────────────────────────────────────────────────────────────
+export function TapagoLogo({
+  size    = 48,
+  variant = "lockup",
+  className,
+  label   = "tapago",
+}: TapagoLogoProps) {
 
-  const teal    = isLight ? "white"                  : "#1a9cb0"
-  const orange  = isLight ? "rgba(255,255,255,0.85)"  : "#e8935a"
-  const green   = isLight ? "rgba(255,255,255,0.65)"  : "#3d5a1e"
-  const wordmark = isLight ? "white"                  : "#1a9cb0"
+  const isMono  = variant === "mono"
+  const c = {
+    teal:   TEAL,
+    green:  isMono ? TEAL : GREEN,
+    orange: isMono ? TEAL : ORANGE,
+  }
 
+  /*
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  GEOMETRÍA — viewBox 0 0 120 120                                ║
+    ║                                                                  ║
+    ║  Rombo base (cuadrado 72×72 girado 45°, centrado en 55,72):     ║
+    ║    Top(55,36)  Right(91,72)  Bottom(55,108)  Left(19,72)        ║
+    ║                                                                  ║
+    ║  TEAL — 3 lados del rombo; lado Top→Right ABIERTO (deliberado). ║
+    ║    Seg1 (55,36)→(19,72)  upper-left arm                        ║
+    ║    Seg2 (19,72)→(55,108) lower-left arm                        ║
+    ║    Seg3 (55,108)→(83,80) lower-right arm — se detiene ~8px     ║
+    ║                           antes del vértice derecho             ║
+    ║                                                                  ║
+    ║  GREEN — chevron interior, pico en (55,46).                     ║
+    ║    Brazo izq: (31,70)→(55,46)  brazo der: (55,46)→(71,62)      ║
+    ║    Gap visual con inner edge del teal ≈ 3px                     ║
+    ║                                                                  ║
+    ║  ORANGE — chevron entre green y teal, pico en (55,57).          ║
+    ║    Brazo izq: (39,73)→(55,57)  brazo der: (55,57)→(65,67)      ║
+    ║    Gap proporcional con green ≈ 3-4px                           ║
+    ║                                                                  ║
+    ║  Todos los trazos comparten SW=7, strokeLinecap="round".        ║
+    ║  Solo <line> y <rect> — sin <path>, <polygon> ni imágenes.      ║
+    ╚══════════════════════════════════════════════════════════════════╝
+  */
+
+  const icon = (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 120 120"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      {/* ── TEAL — rombo abierto (peso visual dominante) ─────────────── */}
+      {/* upper-left arm */}
+      <line x1="55" y1="36" x2="19" y2="72"
+            stroke={c.teal} strokeWidth={SW} strokeLinecap="round"/>
+      {/* lower-left arm */}
+      <line x1="19" y1="72" x2="55" y2="108"
+            stroke={c.teal} strokeWidth={SW} strokeLinecap="round"/>
+      {/* lower-right arm — se detiene antes de cerrar, apertura deliberada */}
+      <line x1="55" y1="108" x2="83" y2="80"
+            stroke={c.teal} strokeWidth={SW} strokeLinecap="round"/>
+
+      {/* ── GREEN — techo/cubierta superior (más corto que teal) ──────── */}
+      <line x1="31" y1="70" x2="55" y2="46"
+            stroke={c.green} strokeWidth={SW} strokeLinecap="round"/>
+      <line x1="55" y1="46" x2="71" y2="62"
+            stroke={c.green} strokeWidth={SW} strokeLinecap="round"/>
+
+      {/* ── ORANGE — nivel intermedio (más corto que green) ───────────── */}
+      <line x1="39" y1="73" x2="55" y2="57"
+            stroke={c.orange} strokeWidth={SW} strokeLinecap="round"/>
+      <line x1="55" y1="57" x2="65" y2="67"
+            stroke={c.orange} strokeWidth={SW} strokeLinecap="round"/>
+    </svg>
+  )
+
+  if (variant === "icon" || variant === "mono") {
+    return <div className={cn("inline-flex", className)}>{icon}</div>
+  }
+
+  // lockup: símbolo + wordmark
   return (
-    <div className={cn("flex items-center gap-3 select-none", className)}>
-      <svg
-        width={iconPx}
-        height={iconPx}
-        viewBox="0 0 200 200"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <defs>
-          {/* Corta todo excepto la zona que asoma por encima del rombo teal */}
-          <clipPath id="clip-back">
-            <polygon points="0,0 200,0 200,115 100,65 0,115" />
-          </clipPath>
-        </defs>
-
-        {/* Verde oscuro — más atrás, desplazado 18px arriba-izquierda */}
-        <rect x="42" y="52" width="80" height="80" rx="14"
-          stroke={green} strokeWidth="7"
-          transform="rotate(45, 82, 92)"
-          clipPath="url(#clip-back)"
-        />
-
-        {/* Naranja — medio, desplazado 9px arriba-izquierda */}
-        <rect x="51" y="61" width="80" height="80" rx="14"
-          stroke={orange} strokeWidth="7"
-          transform="rotate(45, 91, 101)"
-          clipPath="url(#clip-back)"
-        />
-
-        {/* Teal — adelante, sin clip */}
-        <rect x="60" y="70" width="80" height="80" rx="14"
-          stroke={teal} strokeWidth="7"
-          transform="rotate(45, 100, 110)"
-        />
-      </svg>
-
+    <div className={cn("inline-flex items-center gap-3 select-none", className)}>
+      {icon}
       <span
-        style={{ color: wordmark }}
-        className={cn("font-bold tracking-tight leading-none lowercase", textSizes[size])}
+        style={{ color: TEAL }}
+        className="font-bold tracking-tight leading-none lowercase text-2xl"
       >
-        tapago
+        {label}
       </span>
     </div>
   )

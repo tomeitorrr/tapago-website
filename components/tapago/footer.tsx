@@ -7,7 +7,7 @@ export function Footer() {
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
         <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
           {/* Logo */}
-          <TapagoLogo variant="light" size="md" />
+          <TapagoLogo variant="mono" size={40} className="opacity-70" />
 
           {/* Links */}
           <nav className="flex flex-wrap items-center justify-center gap-6" aria-label="Pie de pagina">
