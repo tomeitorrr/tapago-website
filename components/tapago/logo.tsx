@@ -6,50 +6,50 @@ interface LogoProps {
   size?: "sm" | "md" | "lg"
 }
 
-const sizes = {
-  sm: { icon: 34,  text: "text-xl"  },
-  md: { icon: 44,  text: "text-2xl" },
-  lg: { icon: 56,  text: "text-3xl" },
-}
+const iconSizes = { sm: 36, md: 48, lg: 60 }
+const textSizes = { sm: "text-xl", md: "text-2xl", lg: "text-3xl" }
 
 export function TapagoLogo({ className, variant = "dark", size = "md" }: LogoProps) {
-  const { icon, text } = sizes[size]
+  const iconPx  = iconSizes[size]
   const isLight = variant === "light"
 
-  const teal      = isLight ? "white"                 : "#1d91a8"
-  const orange    = isLight ? "rgba(255,255,255,0.85)" : "#e8935a"
-  const green     = isLight ? "rgba(255,255,255,0.65)" : "#3d5a1e"
-  const wordmark  = isLight ? "white"                 : "#1d91a8"
+  const teal    = isLight ? "white"                  : "#1a9cb0"
+  const orange  = isLight ? "rgba(255,255,255,0.85)"  : "#e8935a"
+  const green   = isLight ? "rgba(255,255,255,0.65)"  : "#3d5a1e"
+  const wordmark = isLight ? "white"                  : "#1a9cb0"
 
   return (
     <div className={cn("flex items-center gap-3 select-none", className)}>
       <svg
-        width={icon}
-        height={icon}
-        viewBox="0 0 120 120"
+        width={iconPx}
+        height={iconPx * 1.15}
+        viewBox="0 0 120 138"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
-        style={{ overflow: "visible" }}
       >
-        {/* 3 líneas que salen de la esquina sup-der del rombo en dirección NE (45°) */}
-        <line x1="75" y1="11"  x2="108" y2="-22" stroke={teal}   strokeWidth="5" strokeLinecap="round"/>
-        <line x1="80" y1="16"  x2="113" y2="-17" stroke={orange} strokeWidth="5" strokeLinecap="round"/>
-        <line x1="85" y1="21"  x2="118" y2="-12" stroke={green}  strokeWidth="5" strokeLinecap="round"/>
-
-        {/* Rombo redondeado — dibujado encima para que el borde tape el inicio de las líneas */}
+        {/* Línea verde oscuro — más atrás */}
+        <line x1="79" y1="30" x2="103" y2="6"
+          stroke={green} strokeWidth="5" strokeLinecap="round"/>
+        {/* Línea naranja — medio */}
+        <line x1="84" y1="35" x2="108" y2="11"
+          stroke={orange} strokeWidth="5" strokeLinecap="round"/>
+        {/* Línea teal — adelante */}
+        <line x1="89" y1="40" x2="110" y2="19"
+          stroke={teal} strokeWidth="5" strokeLinecap="round"/>
+        {/* Rombo redondeado */}
         <path
-          d="M60 8 Q68 0 76 8 L112 44 Q120 52 112 60 L76 96 Q68 104 60 96 L24 60 Q16 52 24 44 Z"
-          fill="none"
+          d="M54 33 Q54 19 68 33 L85 50 Q99 64 85 78 L68 95 Q54 109 40 95 L23 78 Q9 64 23 50 L40 33 Q54 19 54 33 Z"
           stroke={teal}
-          strokeWidth="6"
+          strokeWidth="6.5"
           strokeLinejoin="round"
+          fill="none"
         />
       </svg>
 
       <span
         style={{ color: wordmark }}
-        className={cn("font-bold tracking-tight leading-none lowercase", text)}
+        className={cn("font-bold tracking-tight leading-none lowercase", textSizes[size])}
       >
         tapago
       </span>
