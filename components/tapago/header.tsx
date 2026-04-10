@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Menu, X } from "lucide-react"
+import { TapagoLogo } from "./logo"
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -34,12 +35,8 @@ export function Header() {
     >
       <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-4 lg:px-8">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-3">
-          <img 
-            src="/logo.svg" 
-            alt="Tapago" 
-            className="h-10 w-auto"
-          />
+        <a href="/">
+          <TapagoLogo variant={scrolled ? "dark" : "dark"} size="md" />
         </a>
 
         {/* Desktop Navigation */}

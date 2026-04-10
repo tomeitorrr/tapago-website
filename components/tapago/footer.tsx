@@ -1,4 +1,5 @@
 import { MessageCircle, Instagram, Twitter } from "lucide-react"
+import { TapagoLogo } from "./logo"
 
 export function Footer() {
   return (
@@ -6,13 +7,7 @@ export function Footer() {
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
         <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <img 
-              src="/logo.svg" 
-              alt="Tapago" 
-              className="h-8 w-auto brightness-0 invert"
-            />
-          </div>
+          <TapagoLogo variant="light" size="md" />
 
           {/* Links */}
           <nav className="flex flex-wrap items-center justify-center gap-6" aria-label="Pie de pagina">
