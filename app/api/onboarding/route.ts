@@ -12,7 +12,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
 
     const {
-      tipoCliente,
       nombre,
       cuitCuil,
       fechaNacimiento,
@@ -20,22 +19,19 @@ export async function POST(request: NextRequest) {
       actividadEconomica,
       email,
       telefono,
-      direccion,
+      calleNumero,
+      ciudad,
+      provincia,
+      codigoPostal,
     } = body
 
     // Validaciones básicas en el servidor
-    if (!tipoCliente || !nombre || !cuitCuil || !email || !telefono || !direccion) {
+    if (!nombre || !cuitCuil || !email || !telefono || !calleNumero || !ciudad || !provincia || !codigoPostal) {
       return NextResponse.json(
         { error: "Faltan campos requeridos" },
         { status: 400 }
       )
     }
-
-    const esJuridica = tipoCliente === "juridica"
-    const labelNombre = esJuridica ? "Razón social" : "Nombre completo"
-    const labelCuit = esJuridica ? "CUIT" : "CUIL"
-    const labelFecha = esJuridica ? "Fecha de constitución" : "Fecha de nacimiento"
-    const labelNacionalidad = esJuridica ? "País de incorporación" : "Nacionalidad"
 
     const htmlEmail = `
 <!DOCTYPE html>
@@ -54,7 +50,6 @@ export async function POST(request: NextRequest) {
     .field { margin-bottom: 12px; }
     .field-label { font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 2px; }
     .field-value { font-size: 15px; color: #1e293b; font-weight: 500; }
-    .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; background: #e0f2fe; color: #0891b2; }
     .footer { background: #f1f5f9; padding: 20px 32px; text-align: center; }
     .footer p { margin: 0; font-size: 12px; color: #94a3b8; }
   </style>
@@ -63,32 +58,27 @@ export async function POST(request: NextRequest) {
   <div class="container">
     <div class="header">
       <h1>Nueva Solicitud de Apertura de Cuenta</h1>
-      <p>Tapago Pay — Formulario de Onboarding</p>
+      <p>Tapago Pay — Formulario de Onboarding · Persona Humana</p>
     </div>
 
     <div class="section">
-      <p class="section-title">Tipo de cliente</p>
-      <span class="badge">${esJuridica ? "Persona Jurídica" : "Persona Física"}</span>
-    </div>
-
-    <div class="section">
-      <p class="section-title">Datos del titular</p>
+      <p class="section-title">Datos personales</p>
       <div class="field">
-        <div class="field-label">${labelNombre}</div>
+        <div class="field-label">Nombre completo</div>
         <div class="field-value">${nombre}</div>
       </div>
       <div class="field">
-        <div class="field-label">${labelCuit}</div>
+        <div class="field-label">CUIL</div>
         <div class="field-value">${cuitCuil}</div>
       </div>
       ${fechaNacimiento ? `
       <div class="field">
-        <div class="field-label">${labelFecha}</div>
+        <div class="field-label">Fecha de nacimiento</div>
         <div class="field-value">${fechaNacimiento}</div>
       </div>` : ""}
       ${nacionalidad ? `
       <div class="field">
-        <div class="field-label">${labelNacionalidad}</div>
+        <div class="field-label">Nacionalidad</div>
         <div class="field-value">${nacionalidad}</div>
       </div>` : ""}
       ${actividadEconomica ? `
@@ -108,9 +98,25 @@ export async function POST(request: NextRequest) {
         <div class="field-label">Teléfono</div>
         <div class="field-value">${telefono}</div>
       </div>
+    </div>
+
+    <div class="section">
+      <p class="section-title">Domicilio legal</p>
       <div class="field">
-        <div class="field-label">Dirección legal</div>
-        <div class="field-value">${direccion}</div>
+        <div class="field-label">Calle y número</div>
+        <div class="field-value">${calleNumero}</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Ciudad</div>
+        <div class="field-value">${ciudad}</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Provincia</div>
+        <div class="field-value">${provincia}</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Código Postal</div>
+        <div class="field-value">${codigoPostal}</div>
       </div>
     </div>
 
@@ -125,7 +131,7 @@ export async function POST(request: NextRequest) {
     const { error } = await resend.emails.send({
       from: EMAIL_FROM,
       to: EMAIL_TO,
-      subject: `Nueva solicitud de cuenta — ${nombre} (${esJuridica ? "Persona Jurídica" : "Persona Física"})`,
+      subject: `Nueva solicitud de cuenta — ${nombre} (Persona Humana)`,
       html: htmlEmail,
     })
 

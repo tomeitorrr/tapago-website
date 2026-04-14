@@ -9,7 +9,6 @@ import { ArrowRight, ArrowLeft, CheckCircle, AlertCircle, Loader2 } from "lucide
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 import {
   Select,
   SelectContent,
@@ -21,7 +20,6 @@ import {
 // ─── Esquema de validación ───────────────────────────────────────────────────
 
 const schema = z.object({
-  tipoCliente: z.enum(["fisica", "juridica"]),
   nombre: z.string().min(2, "Este campo es requerido"),
   cuitCuil: z.string().min(1, "Este campo es requerido"),
   fechaNacimiento: z.string().optional(),
@@ -29,7 +27,10 @@ const schema = z.object({
   actividadEconomica: z.string().optional(),
   email: z.string().email("Email inválido"),
   telefono: z.string().min(1, "El teléfono es requerido"),
-  direccion: z.string().min(1, "La dirección es requerida"),
+  calleNumero: z.string().min(1, "La calle y número son requeridos"),
+  ciudad: z.string().min(1, "La ciudad es requerida"),
+  provincia: z.string().min(1, "La provincia es requerida"),
+  codigoPostal: z.string().min(1, "El código postal es requerido"),
 })
 
 type FormData = z.infer<typeof schema>
@@ -37,24 +38,23 @@ type FormData = z.infer<typeof schema>
 // ─── Listas de opciones ──────────────────────────────────────────────────────
 
 const ACTIVIDADES = [
-  "Comercio minorista",
-  "Comercio mayorista",
-  "Servicios profesionales",
-  "Tecnología",
-  "Gastronomía",
-  "Salud",
-  "Educación",
-  "Construcción / Inmobiliario",
-  "Transporte",
-  "Industria",
-  "Agro",
+  "Empleado/a en relación de dependencia",
+  "Monotributista",
+  "Autónomo/a",
+  "Estudiante",
+  "Jubilado/a / Pensionado/a",
+  "Desempleado/a",
+  "Ama/o de casa",
   "Otro",
 ]
 
-const PAISES = [
-  "Argentina", "Brasil", "Chile", "Colombia", "México", "Uruguay", "Perú",
-  "Bolivia", "Paraguay", "Venezuela", "Ecuador", "Estados Unidos", "China",
-  "España", "Alemania", "Francia", "Italia", "Reino Unido", "Japón", "Otro",
+const PAISES_MERCOSUR = [
+  "Argentina",
+  "Brasil",
+  "Uruguay",
+  "Paraguay",
+  "Bolivia",
+  "Chile",
 ]
 
 // ─── Componente principal ────────────────────────────────────────────────────
@@ -67,27 +67,15 @@ export function OnboardingForm() {
   const {
     register,
     handleSubmit,
-    watch,
     setValue,
     trigger,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { tipoCliente: "fisica" },
   })
 
-  const tipoCliente = watch("tipoCliente")
-  const esJuridica = tipoCliente === "juridica"
-
-  const labels = {
-    nombre: esJuridica ? "Razón social" : "Nombre completo",
-    cuitCuil: esJuridica ? "CUIT" : "CUIL",
-    fecha: esJuridica ? "Fecha de constitución" : "Fecha de nacimiento",
-    nacionalidad: esJuridica ? "País de incorporación" : "Nacionalidad",
-  }
-
   const handleNextStep = async () => {
-    const valid = await trigger(["tipoCliente", "nombre", "cuitCuil"])
+    const valid = await trigger(["nombre", "cuitCuil"])
     if (valid) setStep(2)
   }
 
@@ -148,7 +136,7 @@ export function OnboardingForm() {
               {s}
             </div>
             <span className={`text-sm font-medium ${step >= s ? "text-foreground" : "text-muted-foreground"}`}>
-              {s === 1 ? "Datos del titular" : "Contacto"}
+              {s === 1 ? "Datos personales" : "Contacto y domicilio"}
             </span>
             {s < 2 && <div className="h-px w-8 bg-border" />}
           </div>
@@ -166,42 +154,14 @@ export function OnboardingForm() {
             transition={{ duration: 0.25 }}
             className="flex flex-col gap-5"
           >
-            {/* Tipo de cliente */}
-            <div>
-              <Label className="mb-2 block text-sm font-semibold">Tipo de cliente</Label>
-              <div className="flex gap-4">
-                {(["fisica", "juridica"] as const).map((tipo) => (
-                  <label
-                    key={tipo}
-                    className={`flex cursor-pointer items-center gap-2 rounded-lg border px-4 py-3 text-sm font-medium transition-all ${
-                      tipoCliente === tipo
-                        ? "border-teal-600 bg-teal-50 text-teal-700"
-                        : "border-border bg-background text-foreground hover:border-teal-300"
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      value={tipo}
-                      {...register("tipoCliente")}
-                      className="sr-only"
-                    />
-                    <span className={`h-4 w-4 rounded-full border-2 transition-colors ${
-                      tipoCliente === tipo ? "border-teal-600 bg-teal-600" : "border-muted-foreground"
-                    }`} />
-                    {tipo === "fisica" ? "Persona Física" : "Persona Jurídica"}
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            {/* Nombre / Razón social */}
+            {/* Nombre completo */}
             <div>
               <Label htmlFor="nombre" className="mb-1.5 block text-sm font-semibold">
-                {labels.nombre} <span className="text-destructive">*</span>
+                Nombre completo <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="nombre"
-                placeholder={esJuridica ? "Ej: Mi Empresa SRL" : "Ej: Juan García"}
+                placeholder="Ej: Juan García"
                 {...register("nombre")}
                 className={errors.nombre ? "border-destructive" : ""}
               />
@@ -210,10 +170,10 @@ export function OnboardingForm() {
               )}
             </div>
 
-            {/* CUIT / CUIL */}
+            {/* CUIL */}
             <div>
               <Label htmlFor="cuitCuil" className="mb-1.5 block text-sm font-semibold">
-                {labels.cuitCuil} <span className="text-destructive">*</span>
+                CUIL <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="cuitCuil"
@@ -226,10 +186,10 @@ export function OnboardingForm() {
               )}
             </div>
 
-            {/* Fecha */}
+            {/* Fecha de nacimiento */}
             <div>
               <Label htmlFor="fechaNacimiento" className="mb-1.5 block text-sm font-semibold">
-                {labels.fecha}
+                Fecha de nacimiento
               </Label>
               <Input
                 id="fechaNacimiento"
@@ -238,15 +198,15 @@ export function OnboardingForm() {
               />
             </div>
 
-            {/* Nacionalidad / País */}
+            {/* Nacionalidad — solo Mercosur */}
             <div>
-              <Label className="mb-1.5 block text-sm font-semibold">{labels.nacionalidad}</Label>
+              <Label className="mb-1.5 block text-sm font-semibold">Nacionalidad</Label>
               <Select onValueChange={(val) => setValue("nacionalidad", val)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Seleccioná un país" />
                 </SelectTrigger>
                 <SelectContent>
-                  {PAISES.map((p) => (
+                  {PAISES_MERCOSUR.map((p) => (
                     <SelectItem key={p} value={p}>{p}</SelectItem>
                   ))}
                 </SelectContent>
@@ -293,12 +253,12 @@ export function OnboardingForm() {
             {/* Email */}
             <div>
               <Label htmlFor="email" className="mb-1.5 block text-sm font-semibold">
-                Email principal <span className="text-destructive">*</span>
+                Email <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="tu@empresa.com"
+                placeholder="tu@email.com"
                 {...register("email")}
                 className={errors.email ? "border-destructive" : ""}
               />
@@ -324,21 +284,64 @@ export function OnboardingForm() {
               )}
             </div>
 
-            {/* Dirección */}
+            {/* Dirección legal — 4 campos separados */}
             <div>
-              <Label htmlFor="direccion" className="mb-1.5 block text-sm font-semibold">
-                Dirección legal <span className="text-destructive">*</span>
+              <Label className="mb-2 block text-sm font-semibold">
+                Domicilio legal <span className="text-destructive">*</span>
               </Label>
-              <Textarea
-                id="direccion"
-                placeholder="Av. Corrientes 1234, CABA, Argentina"
-                rows={3}
-                {...register("direccion")}
-                className={errors.direccion ? "border-destructive" : ""}
-              />
-              {errors.direccion && (
-                <p className="mt-1 text-xs text-destructive">{errors.direccion.message}</p>
-              )}
+              <div className="flex flex-col gap-3">
+                {/* Calle y número */}
+                <div>
+                  <Input
+                    id="calleNumero"
+                    placeholder="Calle y número — Ej: Av. Corrientes 1234"
+                    {...register("calleNumero")}
+                    className={errors.calleNumero ? "border-destructive" : ""}
+                  />
+                  {errors.calleNumero && (
+                    <p className="mt-1 text-xs text-destructive">{errors.calleNumero.message}</p>
+                  )}
+                </div>
+
+                {/* Ciudad */}
+                <div>
+                  <Input
+                    id="ciudad"
+                    placeholder="Ciudad — Ej: Buenos Aires"
+                    {...register("ciudad")}
+                    className={errors.ciudad ? "border-destructive" : ""}
+                  />
+                  {errors.ciudad && (
+                    <p className="mt-1 text-xs text-destructive">{errors.ciudad.message}</p>
+                  )}
+                </div>
+
+                {/* Provincia y Código Postal en la misma fila */}
+                <div className="flex gap-3">
+                  <div className="flex-1">
+                    <Input
+                      id="provincia"
+                      placeholder="Provincia — Ej: CABA"
+                      {...register("provincia")}
+                      className={errors.provincia ? "border-destructive" : ""}
+                    />
+                    {errors.provincia && (
+                      <p className="mt-1 text-xs text-destructive">{errors.provincia.message}</p>
+                    )}
+                  </div>
+                  <div className="w-36">
+                    <Input
+                      id="codigoPostal"
+                      placeholder="Cód. Postal"
+                      {...register("codigoPostal")}
+                      className={errors.codigoPostal ? "border-destructive" : ""}
+                    />
+                    {errors.codigoPostal && (
+                      <p className="mt-1 text-xs text-destructive">{errors.codigoPostal.message}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Error global */}
