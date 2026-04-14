@@ -74,8 +74,8 @@ export default function AbrirCuentaPage() {
                 </p>
                 <p className="mt-1 text-sm text-teal-700">
                   Escribinos a{" "}
-                  <a href="mailto:hola@tapagopay.net" className="font-semibold underline underline-offset-2">
-                    hola@tapagopay.net
+                  <a href="mailto:info@tapagopay.net" className="font-semibold underline underline-offset-2">
+                    info@tapagopay.net
                   </a>
                 </p>
               </div>

@@ -19,7 +19,6 @@ export function Header() {
     { label: "Como funciona", href: "#como-funciona" },
     { label: "Beneficios", href: "#beneficios" },
     { label: "FAQ", href: "#faq" },
-    { label: "Abrir cuenta", href: "/abrir-cuenta" },
   ]
 
   return (
