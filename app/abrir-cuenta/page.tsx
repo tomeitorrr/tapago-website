@@ -1,12 +1,12 @@
 import type { Metadata } from "next"
 import { Header } from "@/components/tapago/header"
 import { Footer } from "@/components/tapago/footer"
-import { OnboardingForm } from "@/components/tapago/onboarding-form"
+import { AccountTypeSelector } from "@/components/tapago/account-type-selector"
 import { Shield, Clock, Globe } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Abrir cuenta — Tapago Pay",
-  description: "Solicitá la apertura de tu cuenta en Tapago Pay. Pagos internacionales sin intermediarios.",
+  description: "Solicitá la apertura de tu cuenta en Tapago Pay. Para personas o empresas. Pagos internacionales sin intermediarios.",
 }
 
 const features = [
@@ -43,7 +43,7 @@ export default function AbrirCuentaPage() {
               Abrí tu cuenta en Tapago
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-              Completá el formulario y nuestro equipo revisará tu solicitud. Sin filas, sin papelerío.
+              Para personas o empresas. Completá el formulario y nuestro equipo revisará tu solicitud en 24-48hs.
             </p>
           </div>
 
@@ -85,7 +85,7 @@ export default function AbrirCuentaPage() {
             <div className="order-1 lg:order-2">
               <div className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
                 <h2 className="mb-6 text-lg font-bold text-foreground">Solicitud de apertura de cuenta</h2>
-                <OnboardingForm />
+                <AccountTypeSelector />
               </div>
             </div>
           </div>
