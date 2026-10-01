@@ -4,32 +4,51 @@ import { cn } from "@/lib/utils"
 
 type ButtonVariant = "lime" | "brand" | "ghost-dark" | "ghost-light"
 
+// Each variant carries the ring-offset color of the surface it is usually placed on.
 const buttonVariants: Record<ButtonVariant, string> = {
-  lime: "bg-lime text-ink hover:bg-lime-hover",
-  brand: "bg-brand text-white hover:bg-[#5249F0]",
-  "ghost-dark": "border border-white/15 text-white hover:bg-white/5 hover:border-white/30",
-  "ghost-light": "border border-line text-text-dark hover:border-text-dark/30 hover:bg-offwhite",
+  lime: "bg-lime text-ink hover:bg-lime-hover focus-visible:ring-offset-ink",
+  brand: "bg-brand text-white hover:bg-[#5249F0] focus-visible:ring-offset-white",
+  "ghost-dark": "border border-white/15 text-white hover:bg-white/5 hover:border-white/30 focus-visible:ring-offset-ink",
+  "ghost-light":
+    "border border-line text-text-dark hover:border-text-dark/30 hover:bg-offwhite focus-visible:ring-offset-white",
+}
+
+type ButtonSize = "md" | "lg"
+
+export function buttonClasses(variant: ButtonVariant, size: ButtonSize, className?: string) {
+  return cn(
+    "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light focus-visible:ring-offset-2",
+    "disabled:cursor-not-allowed disabled:opacity-60",
+    size === "lg" ? "h-12 px-6 text-[15px]" : "h-10 px-5 text-sm",
+    buttonVariants[variant],
+    className,
+  )
 }
 
 interface ButtonLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   variant?: ButtonVariant
-  size?: "md" | "lg"
+  size?: ButtonSize
 }
 
 export function ButtonLink({ variant = "brand", size = "md", className, children, ...props }: ButtonLinkProps) {
   return (
-    <a
-      className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light focus-visible:ring-offset-2 focus-visible:ring-offset-ink",
-        size === "lg" ? "h-12 px-6 text-[15px]" : "h-10 px-5 text-sm",
-        buttonVariants[variant],
-        className,
-      )}
-      {...props}
-    >
+    <a className={buttonClasses(variant, size, className)} {...props}>
       {children}
     </a>
+  )
+}
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant
+  size?: ButtonSize
+}
+
+export function Button({ variant = "brand", size = "md", type = "button", className, children, ...props }: ButtonProps) {
+  return (
+    <button type={type} className={buttonClasses(variant, size, className)} {...props}>
+      {children}
+    </button>
   )
 }
 

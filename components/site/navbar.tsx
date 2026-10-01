@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react"
 
-import { TapagoLogo } from "@/components/tapago/logo"
+import { TapagoLogo } from "./logo"
 import { navLinks, navProducts, SOON_LABEL } from "@/lib/site-content"
 import { cn } from "@/lib/utils"
 import { Badge, ButtonLink } from "./ui"
@@ -38,8 +38,17 @@ export function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : ""
+    if (!mobileOpen) return
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMobileOpen(false)
+    // Close the drawer if the viewport grows past the mobile breakpoint.
+    const mq = window.matchMedia("(min-width: 1024px)")
+    const onMq = () => mq.matches && setMobileOpen(false)
+    document.addEventListener("keydown", onKey)
+    mq.addEventListener("change", onMq)
     return () => {
       document.body.style.overflow = ""
+      document.removeEventListener("keydown", onKey)
+      mq.removeEventListener("change", onMq)
     }
   }, [mobileOpen])
 
@@ -151,7 +160,7 @@ export function Navbar() {
                   <a
                     href={p.href}
                     onClick={() => setMobileOpen(false)}
-                    className="flex items-center justify-between rounded-xl px-1 py-3 text-lg font-medium text-white"
+                    className="flex items-center justify-between rounded-xl px-1 py-3 text-lg font-medium text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light"
                   >
                     {p.label}
                     <Badge tone="dark">{SOON_LABEL}</Badge>
@@ -166,7 +175,7 @@ export function Navbar() {
                   <a
                     href={l.href}
                     onClick={() => setMobileOpen(false)}
-                    className="block rounded-xl px-1 py-3 text-lg font-medium text-white"
+                    className="block rounded-xl px-1 py-3 text-lg font-medium text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light"
                   >
                     {l.label}
                   </a>

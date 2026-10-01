@@ -18,12 +18,12 @@
     --popover-foreground: 234 37% 11%;
     --primary: 243 100% 68%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 84 81% 44%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 228 43% 98%;
+    --secondary-foreground: 234 37% 11%;
     --muted: 210 20% 98%;
     --muted-foreground: 231 7% 44%;
-    --accent: 27 97% 61%;
-    --accent-foreground: 220 26% 14%;
+    --accent: 243 100% 97%;
+    --accent-foreground: 243 100% 68%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 233 17% 92%;
@@ -51,6 +51,12 @@ html {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* Safety net: anything without its own focus-visible ring still gets a visible outline. */
+:focus-visible {
+  outline: 2px solid #8b83ff;
+  outline-offset: 2px;
 }
 
 @layer utilities {

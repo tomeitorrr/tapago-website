@@ -60,28 +60,6 @@ const config: Config = {
         'text-dark': '#101225',
         'text-muted': '#686B7A',
         line: '#E7E8EF',
-        teal: {
-          50: '#ecfeff',
-          100: '#cffafe',
-          200: '#a5f3fc',
-          300: '#67e8f9',
-          400: '#22d3ee',
-          500: '#06b6d4',
-          600: '#0891b2',
-          700: '#0e7490',
-          800: '#155e75',
-          900: '#164e63',
-        },
-        olive: {
-          400: '#a3e635',
-          500: '#84cc16',
-          600: '#65a30d',
-        },
-        'soft-orange': {
-          300: '#fdba74',
-          400: '#fb923c',
-          500: '#f97316',
-        },
       },
       fontFamily: {
         sans: ['var(--font-geist)', 'var(--font-inter)', 'system-ui', 'sans-serif'],

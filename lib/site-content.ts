@@ -4,16 +4,16 @@
 export const SOON_LABEL = "Próximamente"
 
 export const navProducts = [
-  { label: "Cuenta Tapago", href: "#cuenta-tapago", description: "Tu CVU en pesos para operar." },
-  { label: "International Pay", href: "#international-pay", description: "Pagá a proveedores del exterior." },
-  { label: "International Collect", href: "#international-collect", description: "Recibí pagos del exterior." },
+  { label: "Cuenta Tapago", href: "/#cuenta-tapago", description: "Tu CVU en pesos para operar." },
+  { label: "International Pay", href: "/#international-pay", description: "Pagá a proveedores del exterior." },
+  { label: "International Collect", href: "/#international-collect", description: "Recibí pagos del exterior." },
 ]
 
 export const navLinks = [
-  { label: "Empresas", href: "#como-funciona" },
-  { label: "Precios", href: "#cotizar" },
-  { label: "Seguridad", href: "#seguridad" },
-  { label: "Compañía", href: "#contacto" },
+  { label: "Empresas", href: "/#como-funciona" },
+  { label: "Precios", href: "/#cotizar" },
+  { label: "Seguridad", href: "/#seguridad" },
+  { label: "Compañía", href: "/#contacto" },
 ]
 
 export const trustItems = [
@@ -223,18 +223,18 @@ export const footerColumns = [
   {
     title: "Productos",
     links: [
-      { label: "Cuenta Tapago", href: "#cuenta-tapago" },
-      { label: "International Pay", href: "#international-pay" },
-      { label: "International Collect", href: "#international-collect" },
-      { label: "Cotizador", href: "#cotizar" },
+      { label: "Cuenta Tapago", href: "/#cuenta-tapago" },
+      { label: "International Pay", href: "/#international-pay" },
+      { label: "International Collect", href: "/#international-collect" },
+      { label: "Cotizador", href: "/#cotizar" },
     ],
   },
   {
     title: "Empresa",
     links: [
-      { label: "Seguridad", href: "#seguridad" },
-      { label: "Cobertura", href: "#cobertura" },
-      { label: "Preguntas frecuentes", href: "#faq" },
+      { label: "Seguridad", href: "/#seguridad" },
+      { label: "Cobertura", href: "/#cobertura" },
+      { label: "Preguntas frecuentes", href: "/#faq" },
     ],
   },
   {

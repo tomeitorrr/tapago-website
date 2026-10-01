@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60" width="220" height="60">
-  <!-- Icon: tres rombos apilados en abanico, centrados en (30,30) -->
-  <rect x="6.6" y="6.6" width="46.8" height="46.8" rx="4" fill="#E09060" transform="rotate(37 30 30)"/>
-  <rect x="6.6" y="6.6" width="46.8" height="46.8" rx="4" fill="#3B5920" transform="rotate(45 30 30)"/>
-  <rect x="6.6" y="6.6" width="46.8" height="46.8" rx="4" fill="#1B90A8" transform="rotate(53 30 30)"/>
-  <!-- Wordmark -->
-  <text x="70" y="41" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="30" font-weight="600" fill="#1B90A8" letter-spacing="-0.4">Tapago</text>
-</svg>

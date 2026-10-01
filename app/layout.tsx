@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import { Geist, Inter } from "next/font/google"
 
 import { MotionProvider } from "@/components/site/motion-provider"
+import { SITE_NAME, SITE_URL } from "@/lib/seo"
 import "./globals.css"
 
 const geist = Geist({
@@ -20,14 +21,15 @@ const description =
   "Tu cuenta Tapago conecta tu negocio con proveedores internacionales. Cargá pesos, cotizá y pagá en USD desde una sola plataforma."
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tapagopay.net"),
-  title,
+  metadataBase: new URL(SITE_URL),
+  title: { default: title, template: "%s — Tapago" },
   description,
+  alternates: { canonical: "/" },
   openGraph: {
     title,
     description,
-    url: "https://tapagopay.net",
-    siteName: "Tapago",
+    url: "/",
+    siteName: SITE_NAME,
     locale: "es_AR",
     type: "website",
   },

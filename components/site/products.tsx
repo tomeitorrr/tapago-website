@@ -47,16 +47,20 @@ function ProductCard({ product, featured }: { product: Product; featured?: boole
         ))}
       </ul>
 
-      <a
-        href="#como-funciona"
-        className={cn(
-          "mt-auto inline-flex items-center gap-1.5 pt-10 text-sm font-semibold transition-colors focus-visible:underline focus-visible:outline-none",
-          featured ? "text-lime hover:text-white" : "text-brand hover:text-text-dark",
-        )}
-      >
-        {product.cta}
-        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-      </a>
+      <div className="mt-auto pt-10">
+        <a
+          href="#como-funciona"
+          className={cn(
+            "inline-flex items-center gap-1.5 rounded text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4",
+            featured
+              ? "text-lime hover:text-white focus-visible:ring-lime focus-visible:ring-offset-ink"
+              : "text-brand hover:text-text-dark focus-visible:ring-brand focus-visible:ring-offset-white",
+          )}
+        >
+          {product.cta}
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+        </a>
+      </div>
     </article>
   )
 }

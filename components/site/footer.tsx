@@ -1,6 +1,6 @@
 import { Mail, MessageCircle } from "lucide-react"
 
-import { TapagoLogo } from "@/components/tapago/logo"
+import { TapagoLogo } from "./logo"
 import { contact, footerColumns } from "@/lib/site-content"
 import { Container } from "./ui"
 

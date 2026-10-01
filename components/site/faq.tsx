@@ -15,12 +15,12 @@ export function FAQAccordion() {
           <AccordionPrimitive.Header>
             <AccordionPrimitive.Trigger className="flex w-full items-center justify-between gap-6 py-6 text-left text-[17px] font-semibold text-text-dark transition-colors hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-4 md:text-lg">
               {faq.question}
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line text-text-muted transition-all duration-300 group-data-[state=open]:rotate-45 group-data-[state=open]:border-brand group-data-[state=open]:bg-brand group-data-[state=open]:text-white">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line text-text-muted transition-all duration-300 motion-reduce:transition-none group-data-[state=open]:rotate-45 group-data-[state=open]:border-brand group-data-[state=open]:bg-brand group-data-[state=open]:text-white">
                 <Plus className="h-4 w-4" aria-hidden />
               </span>
             </AccordionPrimitive.Trigger>
           </AccordionPrimitive.Header>
-          <AccordionPrimitive.Content className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
+          <AccordionPrimitive.Content className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down motion-reduce:animate-none">
             <p className="max-w-2xl pb-6 pr-14 text-base leading-relaxed text-text-muted">{faq.answer}</p>
           </AccordionPrimitive.Content>
         </AccordionPrimitive.Item>
@@ -46,7 +46,7 @@ export function FaqSection() {
           />
           <p className="mt-6 text-text-muted">
             ¿No encontrás lo que buscás?{" "}
-            <a href={`mailto:${contact.email}`} className="font-medium text-brand underline-offset-4 hover:underline">
+            <a href={`mailto:${contact.email}`} className="rounded font-medium text-brand underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand">
               Escribinos
             </a>
             .
