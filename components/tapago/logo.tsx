@@ -4,12 +4,12 @@ import { cn } from "@/lib/utils"
 
 export interface TapagoLogoProps {
   size?: number | string
-  variant?: "icon" | "lockup" | "mono"
+  variant?: "icon" | "lockup" | "mono" | "light"
   className?: string
   label?: string
 }
 
-const TEAL = "#1B90A8"
+const BRAND = "#635BFF"
 
 export function TapagoLogo({
   variant = "lockup",
@@ -17,7 +17,7 @@ export function TapagoLogo({
   label   = "Tapago",
 }: TapagoLogoProps) {
 
-  const color = variant === "mono" ? "currentColor" : TEAL
+  const color = variant === "mono" ? "currentColor" : variant === "light" ? "#FFFFFF" : BRAND
 
   return (
     <span

@@ -1,9 +1,10 @@
-import { Header } from "@/components/tapago/header"
-import { Hero } from "@/components/tapago/hero"
-import { ProblemSection } from "@/components/tapago/problem-section"
-import { SolutionSection } from "@/components/tapago/solution-section"
-import { HowItWorks } from "@/components/tapago/how-it-works"
-import { BenefitsSection } from "@/components/tapago/benefits-section"
+import { Navbar } from "@/components/site/navbar"
+import { Hero } from "@/components/site/hero"
+import { TrustStrip } from "@/components/site/trust-strip"
+import { Products } from "@/components/site/products"
+import { Steps } from "@/components/site/steps"
+import { QuoteSection } from "@/components/site/payment-calculator"
+// Legacy sections — replaced in the next redesign steps.
 import { BridgeSection } from "@/components/tapago/bridge-section"
 import { SecuritySection } from "@/components/tapago/security-section"
 import { FaqSection } from "@/components/tapago/faq-section"
@@ -13,19 +14,23 @@ import { Footer } from "@/components/tapago/footer"
 export default function Page() {
   return (
     <>
-      <Header />
+      <Navbar />
       <main>
         <Hero />
-        <ProblemSection />
-        <SolutionSection />
-        <HowItWorks />
-        <BenefitsSection />
+        <TrustStrip />
+        <Products />
+        <Steps />
+        <QuoteSection />
         <BridgeSection />
-        <SecuritySection />
+        <div id="seguridad">
+          <SecuritySection />
+        </div>
         <FaqSection />
         <FinalCta />
       </main>
-      <Footer />
+      <div id="contacto">
+        <Footer />
+      </div>
     </>
   )
 }

@@ -44,6 +44,22 @@ const config: Config = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
+        ink: '#090B14',
+        navy: '#111426',
+        brand: {
+          DEFAULT: '#635BFF',
+          light: '#8B83FF',
+          soft: '#EFEEFF',
+        },
+        lime: {
+          DEFAULT: '#C7FF4A',
+          hover: '#B8F02F',
+        },
+        success: '#20B26B',
+        offwhite: '#F7F8FC',
+        'text-dark': '#101225',
+        'text-muted': '#686B7A',
+        line: '#E7E8EF',
         teal: {
           50: '#ecfeff',
           100: '#cffafe',
@@ -68,7 +84,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-geist)', 'var(--font-inter)', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         lg: 'var(--radius)',

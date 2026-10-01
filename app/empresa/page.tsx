@@ -12,18 +12,18 @@ export const metadata: Metadata = {
 const features = [
   {
     icon: Clock,
-    title: "Revisión en 24-48hs",
-    desc: "Evaluamos la solicitud y te damos acceso en menos de dos días hábiles.",
+    title: "Prioridad en el lanzamiento",
+    desc: "Pre-registrate y te contactamos apenas lancemos para completar la apertura.",
   },
   {
     icon: Globe,
     title: "Pagos al mundo para tu empresa",
-    desc: "Proveedores en China, USA y más de 50 países desde el primer día.",
+    desc: "Pagos a proveedores en el exterior, en países no sancionados ni de alto riesgo.",
   },
   {
     icon: Shield,
-    title: "Regulado por el BCRA",
-    desc: "Operamos bajo licencia PSPCP con infraestructura bancaria segura.",
+    title: "PSPCP inscripto ante el BCRA",
+    desc: "Proveedor de Servicios de Pago que ofrece Cuentas de Pago, con infraestructura bancaria.",
   },
 ]
 
@@ -40,10 +40,10 @@ export default function EmpresaPage() {
               Persona Jurídica
             </span>
             <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl text-balance">
-              Abrí la cuenta de tu empresa
+              Pre-registrá a tu empresa
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-              Completá el formulario con los datos de tu empresa y nuestro equipo revisará la solicitud. Sin filas, sin papelerío.
+              Tapago está por lanzar. Completá el pre-registro de tu empresa y te contactamos para continuar con la apertura apenas estemos operativos.
             </p>
           </div>
 

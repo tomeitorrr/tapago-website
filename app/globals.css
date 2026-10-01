@@ -10,25 +10,25 @@
 
 @layer base {
   :root {
-    --background: 210 20% 99%;
-    --foreground: 220 26% 14%;
+    --background: 0 0% 100%;
+    --foreground: 234 37% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 220 26% 14%;
+    --card-foreground: 234 37% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 26% 14%;
-    --primary: 189 94% 37%;
+    --popover-foreground: 234 37% 11%;
+    --primary: 243 100% 68%;
     --primary-foreground: 0 0% 100%;
     --secondary: 84 81% 44%;
     --secondary-foreground: 0 0% 100%;
     --muted: 210 20% 98%;
-    --muted-foreground: 220 9% 46%;
+    --muted-foreground: 231 7% 44%;
     --accent: 27 97% 61%;
     --accent-foreground: 220 26% 14%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 189 94% 37%;
+    --border: 233 17% 92%;
+    --input: 233 17% 92%;
+    --ring: 243 100% 68%;
     --radius: 0.75rem;
   }
 }
@@ -44,4 +44,17 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
 }

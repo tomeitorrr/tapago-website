@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
 import { Resend } from "resend"
-import { createWibondUser } from "@/lib/wibond"
-import { wibondConfirmationEmail, wibondAlertEmail } from "@/lib/wibond-emails"
-import { logWibondAttempt } from "@/lib/sheet-log"
 
 // TODO: Cambiar estos valores según el dominio verificado en Resend
 const EMAIL_FROM = "noreply@tapagopay.net"
@@ -60,7 +57,7 @@ export async function POST(request: NextRequest) {
 <body>
   <div class="container">
     <div class="header">
-      <h1>Nueva Solicitud de Apertura de Cuenta</h1>
+      <h1>Nuevo Pre-registro</h1>
       <p>Tapago Pay — Formulario de Onboarding · Persona Humana</p>
     </div>
 
@@ -134,7 +131,7 @@ export async function POST(request: NextRequest) {
     const { error } = await resend.emails.send({
       from: EMAIL_FROM,
       to: EMAIL_TO,
-      subject: `Nueva solicitud de cuenta — ${nombre} (Persona Humana)`,
+      subject: `Nuevo pre-registro — ${nombre} (Persona Humana)`,
       html: htmlEmail,
     })
 
@@ -144,57 +141,6 @@ export async function POST(request: NextRequest) {
         { error: "No se pudo enviar el formulario. Intentá de nuevo." },
         { status: 500 }
       )
-    }
-
-    // ---- Integración Wibond: alta automática del cliente ----
-    // Si esto falla, no debe afectar la respuesta al cliente (el mail interno ya se mandó bien).
-    try {
-      const cleanTaxID = String(cuitCuil).replace(/\D/g, "")
-
-      const wibondResult = await createWibondUser({
-        email,
-        taxID: cleanTaxID,
-        externalUserID: cleanTaxID,
-      })
-
-      await logWibondAttempt({
-        tipo: "Persona Humana",
-        cliente: nombre,
-        email,
-        taxID: cleanTaxID,
-        resultado: wibondResult.success ? "Éxito" : "Error",
-        mensaje: wibondResult.message,
-      })
-
-      if (wibondResult.success) {
-        const { error: confirmError } = await resend.emails.send({
-          from: EMAIL_FROM,
-          to: email,
-          subject: "Tu cuenta en Tapago Pay fue creada",
-          html: wibondConfirmationEmail(nombre),
-        })
-        if (confirmError) {
-          console.error("Error enviando mail de confirmación al cliente:", confirmError)
-        }
-      } else {
-        const { error: alertError } = await resend.emails.send({
-          from: EMAIL_FROM,
-          to: EMAIL_TO,
-          subject: `⚠️ Error al dar de alta en Wibond — ${nombre}`,
-          html: wibondAlertEmail({
-            tipo: "Persona Humana",
-            cliente: nombre,
-            email,
-            taxID: cleanTaxID,
-            mensaje: wibondResult.message,
-          }),
-        })
-        if (alertError) {
-          console.error("Error enviando alerta interna de Wibond:", alertError)
-        }
-      }
-    } catch (wibondErr) {
-      console.error("Error inesperado en la integración con Wibond:", wibondErr)
     }
 
     return NextResponse.json({ success: true })

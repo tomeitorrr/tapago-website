@@ -12,18 +12,18 @@ export const metadata: Metadata = {
 const features = [
   {
     icon: Clock,
-    title: "Activación en 24-48hs",
-    desc: "Revisamos tu solicitud y te damos acceso en menos de dos días hábiles.",
+    title: "Prioridad en el lanzamiento",
+    desc: "Pre-registrate y te contactamos apenas lancemos para completar la apertura.",
   },
   {
     icon: Globe,
     title: "Pagá al mundo",
-    desc: "Proveedores en China, USA y más de 50 países desde el primer día.",
+    desc: "Pagos a proveedores en el exterior, en países no sancionados ni de alto riesgo.",
   },
   {
     icon: Shield,
-    title: "Regulado por el BCRA",
-    desc: "Operamos bajo licencia PSPCP con infraestructura bancaria segura.",
+    title: "PSPCP inscripto ante el BCRA",
+    desc: "Proveedor de Servicios de Pago que ofrece Cuentas de Pago, con infraestructura bancaria.",
   },
 ]
 
@@ -40,10 +40,10 @@ export default function AbrirCuentaPage() {
               Acceso anticipado
             </span>
             <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl text-balance">
-              Abrí tu cuenta en Tapago
+              Pre-registrate en Tapago
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-              Para personas o empresas. Completá el formulario y nuestro equipo revisará tu solicitud en 24-48hs.
+              Tapago está por lanzar. Completá el pre-registro y te contactamos para continuar con la apertura apenas estemos operativos.
             </p>
           </div>
 

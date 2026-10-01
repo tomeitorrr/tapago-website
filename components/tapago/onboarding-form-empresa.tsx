@@ -140,10 +140,10 @@ export function OnboardingFormEmpresa() {
           <CheckCircle className="h-8 w-8 text-white" />
         </div>
         <div>
-          <h3 className="text-xl font-bold text-foreground">¡Solicitud enviada!</h3>
+          <h3 className="text-xl font-bold text-foreground">¡Pre-registro recibido!</h3>
           <p className="mt-2 text-muted-foreground leading-relaxed">
-            Revisaremos la información de tu empresa y nos pondremos en contacto en{" "}
-            <strong>24-48 horas hábiles.</strong>
+            Gracias por tu interés. Vamos a contactar a tu empresa cuando Tapago esté disponible para{" "}
+            <strong>continuar con la apertura de la cuenta.</strong>
           </p>
         </div>
       </motion.div>
