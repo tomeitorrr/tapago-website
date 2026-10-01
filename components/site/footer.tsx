@@ -13,7 +13,7 @@ export function Footer() {
       <Container>
         <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
           <div>
-            <TapagoLogo variant="light" />
+            <TapagoLogo variant="onDark" className="h-12" />
             <p className="mt-5 max-w-xs text-[15px] leading-relaxed text-white/60">
               Conectamos empresas en Argentina con el mundo.
             </p>

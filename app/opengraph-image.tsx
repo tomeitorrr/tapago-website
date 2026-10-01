@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og"
 
+import { LOGO_VIEWBOX, logoDataUri } from "@/lib/brand"
 import { loadGeist, og } from "@/lib/og"
 
 export const alt = "Tapago — Pagos internacionales para empresas"
@@ -13,8 +14,11 @@ const badge = "Próximamente"
 const footer = "PSPCP inscripto ante el BCRA"
 const domain = "tapagopay.net"
 
+const [, , LOGO_W, LOGO_H] = LOGO_VIEWBOX.lockup.split(" ").map(Number)
+const logoHeight = 64
+
 export default async function OpengraphImage() {
-  const text = ["Tapago", eyebrow, line1, line2, badge, footer, domain].join("")
+  const text = [eyebrow, line1, line2, badge, footer, domain].join("")
   const [bold, medium] = await Promise.all([loadGeist(700, text), loadGeist(500, text)])
   const fonts = [
     ...(bold ? [{ name: "Geist", data: bold, weight: 700 as const }] : []),
@@ -38,7 +42,7 @@ export default async function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ fontSize: 44, fontWeight: 700, letterSpacing: "-0.03em" }}>Tapago</div>
+          <img src={logoDataUri()} alt="Tapago" width={Math.round((logoHeight * LOGO_W) / LOGO_H)} height={logoHeight} />
           <div
             style={{
               display: "flex",

@@ -65,8 +65,8 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto flex h-[72px] w-full max-w-[1240px] items-center justify-between px-5 sm:px-6 lg:px-8">
-        <a href="/" aria-label="Tapago — inicio" className="rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light">
-          <TapagoLogo variant="light" />
+        <a href="/" aria-label="Tapago — inicio" className="-m-1.5 flex items-center rounded-lg p-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-light">
+          <TapagoLogo variant="onDark" className="h-10 sm:h-12" />
         </a>
 
         <nav aria-label="Navegación principal" className="hidden items-center gap-1 lg:flex">

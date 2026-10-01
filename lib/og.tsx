@@ -1,5 +1,7 @@
 // Helpers for next/og image routes (opengraph-image, icon, apple-icon).
 
+import { logoDataUri } from "./brand"
+
 export const og = {
   ink: "#090B14",
   brand: "#635BFF",
@@ -25,27 +27,35 @@ export async function loadGeist(weight: 500 | 700, text: string): Promise<ArrayB
   }
 }
 
-/** Square brand mark used for favicon and apple-touch-icon. */
-export function BrandMark({ size, radius }: { size: number; radius: number }) {
+/**
+ * Square brand mark used for favicon and apple-touch-icon: the logo icon centered on a square.
+ * `background` null leaves it transparent (favicon); `inset` is the padding as a fraction of `size`.
+ */
+export function BrandMark({
+  size,
+  radius = 0,
+  background = null,
+  inset = 0,
+}: {
+  size: number
+  radius?: number
+  background?: string | null
+  inset?: number
+}) {
+  const box = Math.round(size * (1 - inset * 2))
   return (
     <div
       style={{
         width: size,
         height: size,
         borderRadius: radius,
-        background: `linear-gradient(135deg, ${og.brandLight} 0%, ${og.brand} 55%, #4B43E0 100%)`,
+        background: background ?? "transparent",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "#FFFFFF",
-        fontSize: size * 0.62,
-        fontWeight: 700,
-        letterSpacing: "-0.04em",
-        lineHeight: 1,
-        paddingBottom: size * 0.04,
       }}
     >
-      T
+      <img src={logoDataUri({ mark: true })} alt="" width={box} height={box} />
     </div>
   )
 }
