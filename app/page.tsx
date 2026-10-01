@@ -4,12 +4,12 @@ import { TrustStrip } from "@/components/site/trust-strip"
 import { Products } from "@/components/site/products"
 import { Steps } from "@/components/site/steps"
 import { QuoteSection } from "@/components/site/payment-calculator"
-// Legacy sections — replaced in the next redesign steps.
-import { BridgeSection } from "@/components/tapago/bridge-section"
-import { SecuritySection } from "@/components/tapago/security-section"
-import { FaqSection } from "@/components/tapago/faq-section"
-import { FinalCta } from "@/components/tapago/final-cta"
-import { Footer } from "@/components/tapago/footer"
+import { CoverageSection } from "@/components/site/world-map"
+import { SecuritySection } from "@/components/site/security"
+import { TrackingSection } from "@/components/site/transaction-tracker"
+import { FaqSection } from "@/components/site/faq"
+import { CTASection } from "@/components/site/cta-section"
+import { Footer } from "@/components/site/footer"
 
 export default function Page() {
   return (
@@ -21,16 +21,13 @@ export default function Page() {
         <Products />
         <Steps />
         <QuoteSection />
-        <BridgeSection />
-        <div id="seguridad">
-          <SecuritySection />
-        </div>
+        <CoverageSection />
+        <SecuritySection />
+        <TrackingSection />
         <FaqSection />
-        <FinalCta />
+        <CTASection />
       </main>
-      <div id="contacto">
-        <Footer />
-      </div>
+      <Footer />
     </>
   )
 }
